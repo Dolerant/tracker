@@ -1083,6 +1083,7 @@ function saveHabitAction() {
       habit.name = name;
       habit.weeklyMoney = weeklyMoney;
       habit.startDate = startDate;
+      habit.currency = document.getElementById("currencySelect").value;
     }
     appData.currentHabitId = editingHabitId;
     editingHabitId = null;
@@ -1144,6 +1145,7 @@ function showSetup(habitIdToEdit = null) {
     habitInput.value = habit.name;
     weeklyMoneyInput.value = habit.weeklyMoney;
     dateInput.value = habit.startDate;
+    document.getElementById("currencySelect").value = habit.currency || 'USD';
     deleteHabitBtn.classList.remove("hidden");
   } else {
     // Режим додавання НОВОЇ звички
@@ -1254,6 +1256,7 @@ function renderTabs() {
 function updateDashboard() {
   const habit = getCurrentHabit();
   if (!habit) return;
+  const currentCurrency = habit.currency || '$';
 
   habitName.textContent = `Ви відмовляєтеся від: ${habit.name}`;
 
@@ -1325,7 +1328,7 @@ function updateDashboard() {
   // Розрахунок грошей: за 1 секунду капає (Тижнева сума / 7 днів / 24 години / 3600 секунд)
   const moneyPerSecond = habit.weeklyMoney / 7 / 24 / 3600;
   const totalMoneySaved = totalSeconds * moneyPerSecond;
-  moneySavedEl.textContent = `$${totalMoneySaved.toFixed(2)}`;
+  moneySavedEl.textContent = `${currentCurrency} ${totalMoneySaved.toFixed(2)}`;
 
   // Оновлення карток цілей
   goals.forEach(goal => {
