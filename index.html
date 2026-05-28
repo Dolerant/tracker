@@ -792,12 +792,12 @@
     <div class="input-group">
       <label>Скільки грошей Ви витрачали на це на ТИЖДЕНЬ?</label>
       <div class="input-wrapper">
-       <select id="currencySelect" style="background: transparent; color: #22c55e; border: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; outline: none; padding-right: 5px; appearance: none; -webkit-appearance: none; -moz-appearance: none; display: flex; align-items: center; justify-content: center; height: auto; margin: 0; padding-top: 2px;">
-        <option value="USD" style="background: #1e1e24; color: #fff;">$</option>
-        <option value="UAH" style="background: #1e1e24; color: #fff;">₴</option>
-        <option value="CZK" style="background: #1e1e24; color: #fff;">Kč</option>
-        <option value="EUR" style="background: #1e1e24; color: #fff;">€</option>
-      </select>
+       <select id="currencySelect" style="background: transparent; color: #22c55e; border: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; -moz-appearance: none; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); z-index: 10;">
+  <option value="USD" style="background: #1e1e24; color: #fff;">$</option>
+  <option value="UAH" style="background: #1e1e24; color: #fff;">₴</option>
+  <option value="CZK" style="background: #1e1e24; color: #fff;">Kč</option>
+  <option value="EUR" style="background: #1e1e24; color: #fff;">€</option>
+</select>
         <input type="number" id="weeklyMoneyInput" class="input money-input" placeholder="Наприклад: 50" />
       </div>
     </div>
