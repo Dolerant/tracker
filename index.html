@@ -1097,7 +1097,8 @@ function saveHabitAction() {
       name,
       weeklyMoney,
       startDate,
-      history: []
+      history: [],
+      currency: document.getElementById("currencySelect").value
     };
     
     appData.habits.push(newHabit);
