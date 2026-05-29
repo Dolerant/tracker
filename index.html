@@ -1238,18 +1238,37 @@ function renderTabs() {
       // Логіка видалення при кліку на хрестик
       deleteBtn.addEventListener("click", (e) => {
         e.stopPropagation(); // Зупиняємо перемикання на вкладку
+
+        const modal = document.getElementById("customConfirmModal");
         
-        if (confirm(`Ви впевнені, що хочете видалити звичку "${habit.name}"?`)) {
-          appData.habits = appData.habits.filter(h => h.id !== habit.id);
-          
-          if (appData.currentHabitId === habit.id) {
-            appData.currentHabitId = appData.habits.length > 0 ? appData.habits[0].id : null;
-          }
-          
-          saveData();
-          renderTabs();
-          if (typeof updateDashboard === 'function') updateDashboard();
+        // Динамічно міняємо текст у модалці під конкретну звичку
+        const modalText = modal.querySelector("p");
+        if (modalText) {
+            modalText.textContent = `Ви дійсно хочете видалити звичку "${habit.name}"? Цю дію не можна буде скасувати.`;
         }
+
+        // Показуємо модалку
+        modal.style.display = "flex";
+
+        // Кліку на «Видалити» всередині модалки
+        document.getElementById("confirmDeleteBtn").onclick = function() {
+            appData.habits = appData.habits.filter(h => h.id !== habit.id);
+
+            if (appData.currentHabitId === habit.id) {
+                appData.currentHabitId = appData.habits.length > 0 ? appData.habits[0].id : null;
+            }
+
+            saveData();
+            renderTabs();
+            if (typeof updateDashboard === 'function') updateDashboard();
+            modal.style.display = "none";
+        };
+
+        // Клік на «Скасувати»
+        document.getElementById("confirmCancelBtn").onclick = function() {
+            modal.style.display = "none";
+        };
+    });
       });
 
       button.appendChild(deleteBtn);
