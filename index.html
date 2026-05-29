@@ -1207,81 +1207,82 @@ function showDashboard() {
    TABS RENDER
 ========================================= */
 function renderTabs() {
-  tabsContainer.innerHTML = "";
+    tabsContainer.innerHTML = "";
 
-  if (appData.habits && appData.habits.length > 0) {
-    appData.habits.forEach(habit => {
-      // Створюємо саму вкладку
-      const button = document.createElement("button");
-      button.className = "tab-btn";
-      if (habit.id === appData.currentHabitId) {
-        button.classList.add("active");
-      }
-
-      // Текст із назвою звички
-      const textSpan = document.createElement("span");
-      textSpan.textContent = habit.name;
-      button.appendChild(textSpan);
-
-      // Маленький хрестик для видалення
-      const deleteBtn = document.createElement("span");
-      deleteBtn.innerHTML = " &times;";
-      deleteBtn.style.marginLeft = "10px";
-      deleteBtn.style.cursor = "pointer";
-      deleteBtn.style.color = "rgba(255,255,255,0.4)";
-      deleteBtn.style.fontWeight = "bold";
-      deleteBtn.style.transition = "color 0.2s";
-      
-      deleteBtn.onmouseover = () => deleteBtn.style.color = "#ff4d4d";
-      deleteBtn.onmouseout = () => deleteBtn.style.color = "rgba(255,255,255,0.4)";
-
-      // Логіка видалення при кліку на хрестик
-    deleteBtn.addEventListener("click", (e) => {
-        e.stopPropagation(); // Зупиняємо перемикання на вкладку
-
-        const modal = document.getElementById("customConfirmModal");
-        
-        // Динамічно міняємо текст у модалці під конкретну звичку
-        const modalText = modal.querySelector("p");
-        if (modalText) {
-            modalText.textContent = `Ви дійсно хочете видалити звичку "${habit.name}"? Цю дію не можна bude скасувати.`;
-        }
-
-        // Показуємо модалку
-        modal.style.display = "flex";
-
-        // Клік на «Видалити» всередині модалки
-        document.getElementById("confirmDeleteBtn").onclick = function() {
-            appData.habits = appData.habits.filter(h => h.id !== habit.id);
-
-            if (appData.currentHabitId === habit.id) {
-                appData.currentHabitId = appData.habits.length > 0 ? appData.habits[0].id : null;
+    if (appData.habits && appData.habits.length > 0) {
+        appData.habits.forEach(habit => {
+            // Створюємо саму вкладку
+            const button = document.createElement("button");
+            button.className = "tab-btn";
+            if (habit.id === appData.currentHabitId) {
+                button.classList.add("active");
             }
 
-            saveData();
-            renderTabs();
-            if (typeof updateDashboard === 'function') updateDashboard();
-            modal.style.display = "none";
-        };
+            // Текст із назвою звички
+            const textSpan = document.createElement("span");
+            textSpan.textContent = habit.name;
+            button.appendChild(textSpan);
 
-        // Клік на «Скасувати»
-        document.getElementById("confirmCancelBtn").onclick = function() {
-            modal.style.display = "none";
-        };
-    });
+            // Маленький хрестик для видалення
+            const deleteBtn = document.createElement("span");
+            deleteBtn.innerHTML = " &times;";
+            deleteBtn.style.marginLeft = "10px";
+            deleteBtn.style.cursor = "pointer";
+            deleteBtn.style.color = "rgba(255,255,255,0.4)";
+            deleteBtn.style.fontWeight = "bold";
+            deleteBtn.style.transition = "color 0.2s";
+            
+            deleteBtn.onmouseover = () => deleteBtn.style.color = "#ff4d4d";
+            deleteBtn.onmouseout = () => deleteBtn.style.color = "rgba(255,255,255,0.4)";
 
-    button.appendChild(deleteBtn);
+            // Логіка видалення при кліку на хрестик
+            deleteBtn.addEventListener("click", (e) => {
+                e.stopPropagation(); // Зупиняємо перемикання на вкладку
 
-    // Клік на вкладку для перемикання
-    button.addEventListener("click", () => {
-        appData.currentHabitId = habit.id;
-        saveData();
-        renderTabs();
-        if (typeof updateDashboard === 'function') updateDashboard();
-    });
+                const modal = document.getElementById("customConfirmModal");
+                
+                // Динамічно міняємо текст у модалці під конкретну звичку
+                const modalText = modal.querySelector("p");
+                if (modalText) {
+                    modalText.textContent = `Ви дійсно хочете видалити звичку "${habit.name}"? Цю дію не можна буде скасувати.`;
+                }
 
-    tabsContainer.appendChild(button);
-});
+                // Показуємо модалку
+                modal.style.display = "flex";
+
+                // Клік на «Видалити» всередині модалки
+                document.getElementById("confirmDeleteBtn").onclick = function() {
+                    appData.habits = appData.habits.filter(h => h.id !== habit.id);
+
+                    if (appData.currentHabitId === habit.id) {
+                        appData.currentHabitId = appData.habits.length > 0 ? appData.habits[0].id : null;
+                    }
+
+                    saveData();
+                    renderTabs();
+                    if (typeof updateDashboard === 'function') updateDashboard();
+                    modal.style.display = "none";
+                };
+
+                // Клік на «Скасувати»
+                document.getElementById("confirmCancelBtn").onclick = function() {
+                    modal.style.display = "none";
+                };
+            });
+
+            button.appendChild(deleteBtn);
+
+            // Клік на вкладку для перемикання
+            button.addEventListener("click", () => {
+                appData.currentHabitId = habit.id;
+                saveData();
+                renderTabs();
+                if (typeof updateDashboard === 'function') updateDashboard();
+            });
+
+            tabsContainer.appendChild(button);
+        });
+    }
 
     // Твоя рідна кнопка додавання нової звички (повертаємо її на місце)
     const addButton = document.createElement("button");
@@ -1290,7 +1291,6 @@ function renderTabs() {
     addButton.addEventListener("click", () => showSetup(null));
     tabsContainer.appendChild(addButton);
 }
-
 /* =========================================
    UPDATE LOGIC (МАТЕМАТИКА ТАЙМЕРА Й КОШТІВ)
 ========================================= */
