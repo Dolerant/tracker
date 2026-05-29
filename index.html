@@ -75,7 +75,7 @@
       color: var(--text);
       min-height: 100vh;
       padding: 20px;
-      padding-top: 90px; /* Запас зверху під фіксовану панель керування */
+      padding-top: 90px;
       overflow-x: hidden;
       transition: background 0.35s ease, color 0.35s ease;
     }
@@ -99,7 +99,7 @@
     }
 
     /* =========================================
-       TOP CONTROLS PANEL (Фіксована панель в кутку)
+       TOP CONTROLS PANEL
     ========================================= */
     .top-controls-panel {
       position: fixed;
@@ -213,7 +213,7 @@
     }
 
     /* =========================================
-       INPUTS
+       INPUTS & PREMIUM CURRENCY SELECT
     ========================================= */
     .input-group {
       margin-bottom: 22px;
@@ -246,7 +246,7 @@
     }
 
     .money-input {
-      padding-left: 55px;
+      padding-left: 75px; /* Збільшений відступ під вибір валюти */
     }
 
     .input::placeholder {
@@ -256,6 +256,30 @@
 
     .input:focus {
       border-color: var(--accent-main);
+    }
+
+    /* Стилізація селектора без системних білих квадратів */
+    .currency-select-clean {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: transparent;
+      color: var(--green);
+      border: none;
+      font-size: 1.2rem;
+      font-weight: 800;
+      cursor: pointer;
+      outline: none;
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      padding-right: 5px;
+    }
+
+    body.light-theme .currency-select-clean {
+      color: var(--text);
     }
 
     /* =========================================
@@ -309,7 +333,7 @@
 
     .topbar {
       display: flex;
-      justify-content: space-between;
+      justify-between: space-between;
       align-items: center;
       gap: 16px;
       flex-wrap: wrap;
@@ -675,18 +699,18 @@
 <div id="setupScreen" class="setup-screen">
   <div class="setup-card glass">
     <div class="logo">💸</div>
-    <h1 id="setupTitle">Ціna Вашої звички</h1>
-    <p class="subtitle">Перетворіть кожен день без шкідливої звички на реальний прогрес та заощадження.</p>
+    <h1 id="setupTitle">Ціна Вашої звички</h1>
+    <p id="setupSubtitle" class="subtitle">Перетворіть кожен день без шкідливої звички на реальний прогрес та заощадження.</p>
 
     <div class="input-group">
-      <label>Від якої звички Ви відмовляєтеся?</label>
+      <label id="labelHabitName">Від якої звички Ви відмовляєтеся?</label>
       <input type="text" id="habitInput" class="input" placeholder="Наприклад: Енергетики, Цигарки" />
     </div>
 
     <div class="input-group">
-      <label>Скільки грошей Ви витрачали на це на ТИЖДЕНЬ?</label>
+      <label id="labelWeeklyMoney">Скільки грошей Ви витрачали на це на ТИЖДЕНЬ?</label>
       <div class="input-wrapper">
-        <select id="currencySelect" style="background: transparent; color: #00E676; border: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; outline: none; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); z-index: 10;">
+        <select id="currencySelect" class="currency-select-clean">
           <option value="USD" style="background: #181820; color: #fff;">$</option>
           <option value="UAH" style="background: #181820; color: #fff;">₴</option>
           <option value="CZK" style="background: #181820; color: #fff;">Kč</option>
@@ -697,7 +721,7 @@
     </div>
 
     <div class="input-group">
-      <label>Дата та час останнього зриву / старту</label>
+      <label id="labelDateTime">Дата та час останнього зриву / старту</label>
       <input type="datetime-local" id="dateInput" class="input" />
     </div>
 
@@ -719,7 +743,7 @@
 
   <div class="hero-grid">
     <div class="hero-card glass">
-      <div class="hero-title">Ви вільні вже</div>
+      <div id="heroTitleTime" class="hero-title">Ви вільні вже</div>
       <div class="time-grid" id="timeGrid">
         <div class="time-box hidden" id="yearsBox"><div class="time-number" id="years">0</div><div class="time-label" id="yearsLabel">років</div></div>
         <div class="time-box hidden" id="monthsBox"><div class="time-number" id="months">0</div><div class="time-label" id="monthsLabel">місяців</div></div>
@@ -731,39 +755,39 @@
     </div>
 
     <div class="hero-card glass">
-      <div class="hero-title">Заощаджені гроші</div>
+      <div id="heroTitleMoney" class="hero-title">Заощаджені гроші</div>
       <div class="money" id="moneySaved">$0.00</div>
     </div>
   </div>
 
   <div>
-    <div class="section-title">Що можна купити замість цього</div>
-    <div class="section-sub">Кожен день без звички наближає Вас до чогось дійсно цінного.</div>
+    <div id="sectionTitleGoals" class="section-title">Що можна купити замість цього</div>
+    <div id="sectionSubGoals" class="section-sub">Кожен день без звички наближає Вас до чогось дійсно цінного.</div>
 
     <div class="goal-grid">
       <div class="goal-card glass" id="goal1">
-        <div class="goal-icon">🎬</div><div class="goal-name">Квиток у кіно</div><div class="goal-price" id="goalPrice1">$10</div>
-        <div class="progress"><div class="progress-fill" id="progress1"></div></div><div class="progress-text" id="progressText1">0%</div><div class="goal-ready">✅ Уже доступно!</div>
+        <div class="goal-icon">🎬</div><div class="goal-name" id="gName1">Квиток у кіно</div><div class="goal-price" id="goalPrice1">$10</div>
+        <div class="progress"><div class="progress-fill" id="progress1"></div></div><div class="progress-text" id="progressText1">0%</div><div class="goal-ready" id="gReady1">✅ Уже доступно!</div>
       </div>
       <div class="goal-card glass" id="goal2">
-        <div class="goal-icon">👟</div><div class="goal-name">Нові кросівки</div><div class="goal-price" id="goalPrice2">$120</div>
-        <div class="progress"><div class="progress-fill" id="progress2"></div></div><div class="progress-text" id="progressText2">0%</div><div class="goal-ready">🔥 Майже Ваші</div>
+        <div class="goal-icon">👟</div><div class="goal-name" id="gName2">Нові кросівки</div><div class="goal-price" id="goalPrice2">$120</div>
+        <div class="progress"><div class="progress-fill" id="progress2"></div></div><div class="progress-text" id="progressText2">0%</div><div class="goal-ready" id="gReady2">🔥 Майже Ваші</div>
       </div>
       <div class="goal-card glass" id="goal3">
-        <div class="goal-icon">✈️</div><div class="goal-name">Поїздка на вікенд</div><div class="goal-price" id="goalPrice3">$300</div>
-        <div class="progress"><div class="progress-fill" id="progress3"></div></div><div class="progress-text" id="progressText3">0%</div><div class="goal-ready">🌍 Час вирушати!</div>
+        <div class="goal-icon">✈️</div><div class="goal-name" id="gName3">Поїздка на вікенд</div><div class="goal-price" id="goalPrice3">$300</div>
+        <div class="progress"><div class="progress-fill" id="progress3"></div></div><div class="progress-text" id="progressText3">0%</div><div class="goal-ready" id="gReady3">🌍 Час вирушати!</div>
       </div>
       <div class="goal-card glass" id="goal4">
-        <div class="goal-icon">📱</div><div class="goal-name">Новий смартфон</div><div class="goal-price" id="goalPrice4">$1000</div>
-        <div class="progress"><div class="progress-fill" id="progress4"></div></div><div class="progress-text" id="progressText4">0%</div><div class="goal-ready">🚀 Ви це зробили!</div>
+        <div class="goal-icon">📱</div><div class="goal-name" id="gName4">Новий смартфон</div><div class="goal-price" id="goalPrice4">$1000</div>
+        <div class="progress"><div class="progress-fill" id="progress4"></div></div><div class="progress-text" id="progressText4">0%</div><div class="goal-ready" id="gReady4">🚀 Ви це зробили!</div>
       </div>
       <div class="goal-card glass" id="goal5">
-        <div class="goal-icon">💻</div><div class="goal-name">Новий ноутбук</div><div class="goal-price" id="goalPrice5">$1000</div>
-        <div class="progress"><div class="progress-fill" id="progress5"></div></div><div class="progress-text" id="progressText5">0%</div><div class="goal-ready">💼 Потужне оновлення!</div>
+        <div class="goal-icon">💻</div><div class="goal-name" id="gName5">Новий ноутбук</div><div class="goal-price" id="goalPrice5">$1000</div>
+        <div class="progress"><div class="progress-fill" id="progress5"></div></div><div class="progress-text" id="progressText5">0%</div><div class="goal-ready" id="gReady5">💼 Потужне оновлення!</div>
       </div>
       <div class="goal-card glass" id="goal6">
-        <div class="goal-icon">🚗</div><div class="goal-name">Перший внесок за авто</div><div class="goal-price" id="goalPrice6">$4000</div>
-        <div class="progress"><div class="progress-fill" id="progress6"></div></div><div class="progress-text" id="progressText6">0%</div><div class="goal-ready">🏁 Велика ціль досягнута!</div>
+        <div class="goal-icon">🚗</div><div class="goal-name" id="gName6">Перший внесок за авто</div><div class="goal-price" id="goalPrice6">$4000</div>
+        <div class="progress"><div class="progress-fill" id="progress6"></div></div><div class="progress-text" id="progressText6">0%</div><div class="goal-ready" id="gReady6">🏁 Велика ціль досягнута!</div>
       </div>
     </div>
   </div>
@@ -775,8 +799,8 @@
 
 <div class="modal hidden" id="modal">
   <div class="modal-card glass">
-    <div class="modal-title">Не здавайтеся</div>
-    <div class="modal-text">Кожен крок назад — це частина шляху. Ви можете почати знову просто зараз.</div>
+    <div class="modal-title" id="mTitle">Не здавайтеся</div>
+    <div class="modal-text" id="mText">Кожен крок назад — це частина шляху. Ви можете почати знову просто зараз.</div>
     <div class="modal-actions">
       <button class="btn-secondary" id="cancelReset">Скасувати</button>
       <button class="btn-danger" id="confirmReset">Підтвердити зрив</button>
@@ -786,28 +810,115 @@
 
 <div id="customConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); z-index: 99999; align-items: center; justify-content: center;">
   <div style="background: #1e1e24; border: 1px solid #2d2d35; padding: 30px; border-radius: 16px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
-    <h3 style="color: #fff; margin-top: 0; font-size: 1.4rem; margin-bottom: 15px;">Видалення звички</h3>
-    <p style="color: #94a3b8; font-size: 1rem; margin-bottom: 25px;">Ви дійсно хочете видалити цю звичку?</p>
+    <h3 id="delModalTitle" style="color: #fff; margin-top: 0; font-size: 1.4rem; margin-bottom: 15px;">Видалення звички</h3>
+    <p id="delModalText" style="color: #94a3b8; font-size: 1rem; margin-bottom: 25px;">Ви дійсно хочете видалити цю звичку?</p>
     <div style="display: flex; gap: 15px; justify-content: center;">
       <button id="confirmCancelBtn" style="background: #2d2d35; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1;">Скасувати</button>
-      <button id="confirmDeleteBtn" style="background: #ef4444; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1;">Видалити</button>
+      <button id="confirmDeleteBtn" style="background: #ef4444; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1;">Вилити</button>
     </div>
   </div>
 </div>
 
 <script>
 /* =========================================
-   LOCALIZATION DICTIONARY
+   ПОВНИЙ СЛОВНИК ЛОКАЛІЗАЦІЇ (РЕКВІЗИТ ДЛЯ РЕЛІЗУ)
 ========================================= */
 const i18n = {
     ua: {
-        addHabit: "+ Додати звичку"
+        addHabit: "+ Додати звичку",
+        setupTitle: "Ціна Вашої звички",
+        setupSubtitle: "Перетворіть кожен день без шкідливої звички на реальний прогрес та заощадження.",
+        labelHabitName: "Від якої звички Ви відмовляєтеся?",
+        placeholderHabit: "Наприклад: Енергетики, Цигарки",
+        labelWeeklyMoney: "Скільки грошей Ви витрачали на це на ТИЖДЕНЬ?",
+        placeholderMoney: "Наприклад: 500",
+        labelDateTime: "Дата та час останнього зриву / старту",
+        startBtnSave: "Зберегти звичку",
+        btnDeleteHabit: "Видалити цю звичку",
+        editTitle: "Редагування звички",
+        changeSettings: "Змінити налаштування",
+        heroTitleTime: "Ви вільні вже",
+        heroTitleMoney: "Заощаджені гроші",
+        sectionTitleGoals: "Що можна купити замість цього",
+        sectionSubGoals: "Кожен день без звички наближає Вас до чогось дійсно цінного.",
+        panicBtn: "Я зірвався/лася (скинути відлік)",
+        mTitle: "Не здавайтеся",
+        mText: "Кожен крок назад — це частина шляху. Ви можете почати знову просто зараз.",
+        cancel: "Скасувати",
+        confirmReset: "Підтвердити зрив",
+        delModalTitle: "Видалення звички",
+        delModalText: "Ви дійсно хочете видалити цю звичку?",
+        delete: "Видалити",
+        gName1: "Квиток у кіно", gReady1: "✅ Уже доступно!",
+        gName2: "Нові кросівки", gReady2: "🔥 Майже Ваші",
+        gName3: "Поїздка на вікенд", gReady3: "🌍 Час вирушати!",
+        gName4: "Новий смартфон", gReady4: "🚀 Ви це зробили!",
+        gName5: "Новий ноутбук", gReady5: "💼 Потужне оновлення!",
+        gName6: "Перший внесок за авто", gReady6: "🏁 Велика ціль досягнута!"
     },
     cz: {
-        addHabit: "+ Přidat zvyk"
+        addHabit: "+ Přidat zvyk",
+        setupTitle: "Cena Vašeho zvyku",
+        setupSubtitle: "Proměňte každý den bez zlozvyku v reálný pokrok a úspory.",
+        labelHabitName: "Jakého zvyku se vzdáváte?",
+        placeholderHabit: "Například: Energetické nápoje, Cigarety",
+        labelWeeklyMoney: "Kolik peněz jste za to utratili za TÝDEN?",
+        placeholderMoney: "Například: 500",
+        labelDateTime: "Datum a čas posledního selhání / startu",
+        startBtnSave: "Uložit zvyk",
+        btnDeleteHabit: "Smazat tento zvyk",
+        editTitle: "Upravit zvyk",
+        changeSettings: "Změnit nastavení",
+        heroTitleTime: "Jste volní již",
+        heroTitleMoney: "Ušetřené peníze",
+        sectionTitleGoals: "Co si můžete koupit místo toho",
+        sectionSubGoals: "Každý den bez zlozvyku Vás přibližuje k něčemu skutečně hodnotnému.",
+        panicBtn: "Selhal jsem (resetovat odpočet)",
+        mTitle: "Nevzdávejte se",
+        mText: "Každý krok zpět je součástí cesty. Můžete začít znovu právě teď.",
+        cancel: "Zrušit",
+        confirmReset: "Potvrdit selhání",
+        delModalTitle: "Smazat zvyk",
+        delModalText: "Opravdu chcete tento zvyk smazat?",
+        delete: "Smazat",
+        gName1: "Lístek do kina", gReady1: "✅ Již dostupné!",
+        gName2: "Nové tenisky", gReady2: "🔥 Téměř Vaše",
+        gName3: "Víkendový výlet", gReady3: "🌍 Čas vyrazit!",
+        gName4: "Nový smartphone", gReady4: "🚀 Dokázali jste to!",
+        gName5: "Nový notebook", gReady5: "💼 Výkonný upgrade!",
+        gName6: "Akontace na auto", gReady6: "🏁 Velký cíl splněn!"
     },
     en: {
-        addHabit: "+ Add Habit"
+        addHabit: "+ Add Habit",
+        setupTitle: "The Price of Your Habit",
+        setupSubtitle: "Turn every day without a bad habit into real progress and savings.",
+        labelHabitName: "What habit are you quitting?",
+        placeholderHabit: "E.g., Energy drinks, Smoking",
+        labelWeeklyMoney: "How much money did you spend on this per WEEK?",
+        placeholderMoney: "E.g., 500",
+        labelDateTime: "Date and time of last relapse / start",
+        startBtnSave: "Save Habit",
+        btnDeleteHabit: "Delete this habit",
+        editTitle: "Edit Habit",
+        changeSettings: "Change Settings",
+        heroTitleTime: "You've been free for",
+        heroTitleMoney: "Money Saved",
+        sectionTitleGoals: "What you can buy instead",
+        sectionSubGoals: "Every day without a habit brings you closer to something truly valuable.",
+        panicBtn: "I relapsed (reset timer)",
+        mTitle: "Don't give up",
+        mText: "Every step back is part of the journey. You can start again right now.",
+        cancel: "Cancel",
+        confirmReset: "Confirm Relapse",
+        delModalTitle: "Delete Habit",
+        delModalText: "Are you sure you want to delete this habit?",
+        delete: "Delete",
+        gName1: "Movie ticket", gReady1: "✅ Already available!",
+        gName2: "New sneakers", gReady2: "🔥 Almost yours",
+        gName3: "Weekend trip", gReady3: "🌍 Time to go!",
+        gName4: "New smartphone", gReady4: "🚀 You did it!",
+        gName5: "New notebook", gReady5: "💼 Powerful upgrade!",
+        gName6: "Car down payment", gReady6: "🏁 Big goal achieved!"
     }
 };
 
@@ -909,6 +1020,7 @@ function loadData() {
     }
 }
 
+/* ОНОВЛЕНА ФУНКЦІЯ ПЕРЕКЛАДУ — ОНОВЛЮЄ ВСІ ЕЛЕМЕНТИ ІНТЕРФЕЙСУ ОДНОЧАСНО */
 function changeLanguage(lang) {
     appData.language = lang;
     saveData();
@@ -917,13 +1029,51 @@ function changeLanguage(lang) {
     const activeBtn = document.getElementById(`lang-${lang}`);
     if (activeBtn) activeBtn.classList.add('active');
 
-    const setupTitleEl = document.getElementById('setupTitle');
-    if (setupTitleEl && !editingHabitId) {
-        setupTitleEl.textContent = lang === 'ua' ? 'Ціна Вашої звички' : (lang === 'cz' ? 'Cena Vašeho zvyku' : 'The Price of Your Habit');
+    const dict = i18n[lang] || i18n['ua'];
+
+    // Екран налаштувань
+    if (!editingHabitId) {
+        setupTitle.textContent = dict.setupTitle;
+    } else {
+        setupTitle.textContent = dict.editTitle;
+    }
+    document.getElementById("setupSubtitle").textContent = dict.setupSubtitle;
+    document.getElementById("labelHabitName").textContent = dict.labelHabitName;
+    document.getElementById("habitInput").placeholder = dict.placeholderHabit;
+    document.getElementById("labelWeeklyMoney").textContent = dict.labelWeeklyMoney;
+    document.getElementById("weeklyMoneyInput").placeholder = dict.placeholderMoney;
+    document.getElementById("labelDateTime").textContent = dict.labelDateTime;
+    startBtn.textContent = dict.startBtnSave;
+    deleteHabitBtn.textContent = dict.btnDeleteHabit;
+
+    // Головний екран
+    changeSettingsBtn.textContent = dict.changeSettings;
+    document.getElementById("heroTitleTime").textContent = dict.heroTitleTime;
+    document.getElementById("heroTitleMoney").textContent = dict.heroTitleMoney;
+    document.getElementById("sectionTitleGoals").textContent = dict.sectionTitleGoals;
+    document.getElementById("sectionSubGoals").textContent = dict.sectionSubGoals;
+    panicBtn.textContent = dict.panicBtn;
+
+    // Модалки
+    document.getElementById("mTitle").textContent = dict.mTitle;
+    document.getElementById("mText").textContent = dict.mText;
+    cancelReset.textContent = dict.cancel;
+    confirmReset.textContent = dict.confirmReset;
+    document.getElementById("delModalTitle").textContent = dict.delModalTitle;
+    document.getElementById("delModalText").textContent = dict.delModalText;
+    document.getElementById("confirmCancelBtn").textContent = dict.cancel;
+    document.getElementById("confirmDeleteBtn").textContent = dict.delete;
+
+    // Цілі
+    for (let i = 1; i <= 6; i++) {
+        document.getElementById(`gName${i}`).textContent = dict[`gName${i}`];
+        document.getElementById(`gReady${i}`).textContent = dict[`gReady${i}`];
     }
 
     renderTabs();
-    if (typeof updateDashboard === 'function') updateDashboard();
+    if (appData.habits && appData.habits.length > 0) {
+        updateDashboard();
+    }
 }
 
 function getCurrentHabit() {
@@ -936,7 +1086,7 @@ function saveHabitAction() {
   const startDate = dateInput.value;
 
   if (!name || isNaN(weeklyMoney) || !startDate) {
-    alert("Будь ласка, заповніть усі поля правильними даними.");
+    alert(appData.language === 'ua' ? "Будь ласка, заповніть усі поля правильними даними." : (appData.language === 'cz' ? "Vyplňte prosím všechna pole se správnými údaji." : "Please fill in all fields with valid data."));
     return;
   }
 
@@ -992,10 +1142,12 @@ function showSetup(habitIdToEdit = null) {
   setupScreen.classList.remove("hidden");
   dashboard.classList.add("hidden");
 
+  const dict = i18n[appData.language] || i18n['ua'];
+
   if (habitIdToEdit) {
     editingHabitId = habitIdToEdit;
     const habit = appData.habits.find(h => h.id === habitIdToEdit);
-    setupTitle.textContent = "Редагування звички";
+    setupTitle.textContent = dict.editTitle;
     habitInput.value = habit.name;
     weeklyMoneyInput.value = habit.weeklyMoney;
     dateInput.value = habit.startDate;
@@ -1003,7 +1155,7 @@ function showSetup(habitIdToEdit = null) {
     deleteHabitBtn.classList.remove("hidden");
   } else {
     editingHabitId = null;
-    setupTitle.textContent = appData.language === 'ua' ? "Ціна Вашої звички" : (appData.language === 'cz' ? "Cena Vašeho zvyku" : "The Price of Your Habit");
+    setupTitle.textContent = dict.setupTitle;
     habitInput.value = "";
     weeklyMoneyInput.value = "";
     deleteHabitBtn.classList.add("hidden");
