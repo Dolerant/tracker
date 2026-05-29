@@ -1154,6 +1154,10 @@ function loadData() {
             appData.language = "ua";
         }
     }
+    
+    // Запускаємо ініціалізацію мови при старті сайту
+    changeLanguage(appData.language);
+
     if (appData.habits && appData.habits.length > 0) {
         if (!appData.currentHabitId) {
             appData.currentHabitId = appData.habits[0].id;
@@ -1162,6 +1166,36 @@ function loadData() {
     } else {
         showSetup(null); // Порожній запуск — створення першої звички
     }
+}
+
+function changeLanguage(lang) {
+    // 1. Записуємо вибрану мову в наші глобальні дані
+    appData.language = lang;
+    saveData();
+
+    // 2. Оновлюємо візуальну підсвітку кнопок мови в кутку сайту
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.getElementById(`lang-${lang}`);
+    if (activeBtn) activeBtn.classList.add('active');
+
+    // 3. Перекладаємо елементи
+    const currentLabels = i18n[lang];
+    
+    // Переклад кнопки додавання звички
+    const addBtnEl = document.querySelector('.add-tab-btn');
+    if (addBtnEl) addBtnEl.textContent = currentLabels.addHabit;
+
+    // Переклад заголовків у модалці налаштувань / створення
+    const setupTitleEl = document.getElementById('setupTitle');
+    if (setupTitleEl) {
+        if (!editingHabitId) {
+            setupTitleEl.textContent = lang === 'ua' ? 'Ціна Вашої звички' : (lang === 'cz' ? 'Cena Vašeho zvyku' : 'The Price of Your Habit');
+        }
+    }
+
+    // Перезапускаємо рендер, щоб оновити інші тексти на екрані
+    renderTabs();
+    if (typeof updateDashboard === 'function') updateDashboard();
 }
 
 /* =========================================
