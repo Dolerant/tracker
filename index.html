@@ -1199,7 +1199,10 @@ saveProfileBtn.addEventListener("click", () => {
 
   appData.userProfile = { username, age, gender: selectedGenderValue, motivation };
   saveData();
-  
+
+  // Оновлюємо тексти на екрані прямо зараз, не чекаючи перезавантаження
+  changeLanguage(appData.language);
+
   onboardingScreen.classList.add("hidden");
   showSetup(null);
 });
