@@ -166,16 +166,16 @@
     }
 
     /* =========================================
-       SETUP SCREEN
+       SCREENS CONFIG (SETUP & ONBOARDING)
     ========================================= */
-    .setup-screen {
+    .screen-layout {
       min-height: calc(100vh - 110px);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .setup-card {
+    .form-card {
       width: 100%;
       max-width: 640px;
       padding: 40px;
@@ -213,7 +213,7 @@
     }
 
     /* =========================================
-       INPUTS & PREMIUM CURRENCY SELECT
+       INPUTS & PREMIUM GENDER SELECTOR
     ========================================= */
     .input-group {
       margin-bottom: 22px;
@@ -246,7 +246,7 @@
     }
 
     .money-input {
-      padding-left: 75px; /* Збільшений відступ під вибір валюти */
+      padding-left: 75px;
     }
 
     .input::placeholder {
@@ -258,7 +258,6 @@
       border-color: var(--accent-main);
     }
 
-    /* Стилізація селектора без системних білих квадратів */
     .currency-select-clean {
       appearance: none;
       -webkit-appearance: none;
@@ -280,6 +279,46 @@
 
     body.light-theme .currency-select-clean {
       color: var(--text);
+    }
+
+    /* Кастомні преміум-картки для вибору статі */
+    .gender-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .gender-card {
+      background: var(--input);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.25s ease;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .gender-card:hover {
+      background: var(--card-hover);
+      border-color: var(--muted);
+    }
+
+    .gender-card.selected {
+      border-color: var(--accent-main);
+      background: rgba(0, 230, 118, 0.05);
+      color: var(--accent-main);
+    }
+
+    body.light-theme .gender-card.selected {
+      background: rgba(15, 23, 42, 0.05);
+      color: var(--text);
+      border-color: var(--text);
     }
 
     /* =========================================
@@ -333,7 +372,7 @@
 
     .topbar {
       display: flex;
-      justify-between: space-between;
+      justify-content: space-between;
       align-items: center;
       gap: 16px;
       flex-wrap: wrap;
@@ -346,11 +385,38 @@
       letter-spacing: -1px;
     }
 
+    .user-welcome-text {
+      font-size: 18px;
+      color: var(--text);
+      font-weight: 700;
+    }
+
     .habit-name {
       color: var(--muted);
       font-size: 14px;
       font-weight: 700;
       margin-top: 6px;
+    }
+
+    .user-motivation-banner {
+      background: rgba(0, 230, 118, 0.04);
+      border: 1px dashed rgba(0, 230, 118, 0.2);
+      border-radius: 16px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--muted);
+    }
+    
+    body.light-theme .user-motivation-banner {
+      background: rgba(15, 23, 42, 0.03);
+      border-color: rgba(15, 23, 42, 0.1);
+    }
+
+    .user-motivation-banner span {
+      color: var(--text);
+      font-weight: 700;
     }
 
     .reset-small {
@@ -676,10 +742,11 @@
     @media(max-width: 650px) {
       body { padding: 14px; padding-top: 90px; }
       .top-controls-panel { top: 10px; right: 10px; }
-      h1 { font-size: 34px; }
+      h1 { font-size: 32px; }
       .money { font-size: 40px; }
       .goal-grid { grid-template-columns: 1fr; }
       .modal-actions { flex-direction: column; }
+      .gender-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -696,8 +763,48 @@
     <button class="theme-toggle" id="themeToggle">☀️</button>
 </div>
 
-<div id="setupScreen" class="setup-screen">
-  <div class="setup-card glass">
+<div id="onboardingScreen" class="screen-layout hidden">
+  <div class="form-card glass">
+    <div class="logo">👋</div>
+    <h1 id="onbTitle">Створення акаунту</h1>
+    <p id="onbSubtitle" class="subtitle">Уведіть кілька базових деталей, щоб персоналізувати ваш трекер мотивації.</p>
+
+    <div class="input-group">
+      <label id="labelUsername">Ваше ім'я або Нікнейм</label>
+      <input type="text" id="usernameInput" class="input" placeholder="Наприклад: Алекс, Гост" />
+    </div>
+
+    <div class="input-group">
+      <label id="labelAge">Ваш вік</label>
+      <input type="number" id="ageInput" class="input" placeholder="Наприклад: 22" />
+    </div>
+
+    <div class="input-group">
+      <label id="labelGender">Ваша стать</label>
+      <div class="gender-grid">
+        <div class="gender-card" id="gender-male" onclick="selectGender('male')">
+          <span>🧍‍♂️</span><span id="txtMale">Чоловік</span>
+        </div>
+        <div class="gender-card" id="gender-female" onclick="selectGender('female')">
+          <span>🧍‍♀️</span><span id="txtFemale">Жінка</span>
+        </div>
+        <div class="gender-card" id="gender-other" onclick="selectGender('other')">
+          <span>✨</span><span id="txtOther">Інше</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label id="labelMotivation">Чому Ви хочете позбутися цієї звички?</label>
+      <input type="text" id="motivationInput" class="input" placeholder="Наприклад: Купити авто, зберегти здоров'я" />
+    </div>
+
+    <button class="start-btn" id="saveProfileBtn">Продовжити</button>
+  </div>
+</div>
+
+<div id="setupScreen" class="screen-layout hidden">
+  <div class="form-card glass">
     <div class="logo">💸</div>
     <h1 id="setupTitle">Ціна Вашої звички</h1>
     <p id="setupSubtitle" class="subtitle">Перетворіть кожен день без шкідливої звички на реальний прогрес та заощадження.</p>
@@ -733,10 +840,14 @@
 <div id="dashboard" class="dashboard hidden container">
   <div class="topbar">
     <div>
-      <div class="dashboard-title">Dashboard</div>
+      <div class="user-welcome-text" id="userWelcome">Привіт, Користувачу! 👋</div>
       <div class="habit-name" id="habitName"></div>
     </div>
     <button class="reset-small" id="changeSettingsBtn">Змінити налаштування</button>
+  </div>
+
+  <div class="user-motivation-banner" id="motivationBanner">
+    Ваша головна мотивація: <span>Зберегти фінанси та здоров'я</span>
   </div>
 
   <div class="tabs-container" id="tabsContainer"></div>
@@ -814,18 +925,30 @@
     <p id="delModalText" style="color: #94a3b8; font-size: 1rem; margin-bottom: 25px;">Ви дійсно хочете видалити цю звичку?</p>
     <div style="display: flex; gap: 15px; justify-content: center;">
       <button id="confirmCancelBtn" style="background: #2d2d35; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1;">Скасувати</button>
-      <button id="confirmDeleteBtn" style="background: #ef4444; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1;">Вилити</button>
+      <button id="confirmDeleteBtn" style="background: #ef4444; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1;">Видалити</button>
     </div>
   </div>
 </div>
 
 <script>
 /* =========================================
-   ПОВНИЙ СЛОВНИК ЛОКАЛІЗАЦІЇ (РЕКВІЗИТ ДЛЯ РЕЛІЗУ)
+   РОЗШИРЕНИЙ СЛОВНИК ЛОКАЛІЗАЦІЇ З ПРОФІЛЕМ
 ========================================= */
 const i18n = {
     ua: {
+        alertFields: "Будь ласка, заповніть усі поля правильними даними.",
         addHabit: "+ Додати звичку",
+        onbTitle: "Створення акаунту",
+        onbSubtitle: "Уведіть кілька базових деталей, щоб персоналізувати ваш трекер мотивації.",
+        labelUsername: "Ваше ім'я або Нікнейм",
+        placeholderUser: "Наприклад: Алекс, Гост",
+        labelAge: "Ваш вік",
+        placeholderAge: "Наприклад: 22",
+        labelGender: "Ваша стать",
+        txtMale: "Чоловік", txtFemale: "Жінка", txtOther: "Інше",
+        labelMotivation: "Чому Ви хочете позбутися цієї звички?",
+        placeholderMotiv: "Наприклад: Купити авто, зберегти здоров'я",
+        btnContinue: "Продовжити",
         setupTitle: "Ціна Вашої звички",
         setupSubtitle: "Перетворіть кожен день без шкідливої звички на реальний прогрес та заощадження.",
         labelHabitName: "Від якої звички Ви відмовляєтеся?",
@@ -841,7 +964,7 @@ const i18n = {
         heroTitleMoney: "Заощаджені гроші",
         sectionTitleGoals: "Що можна купити замість цього",
         sectionSubGoals: "Кожен день без звички наближає Вас до чогось дійсно цінного.",
-        panicBtn: "Я зірвався/лася (скинути відлік)",
+        panicBtn: "Я зірвался/лася (скинути відлік)",
         mTitle: "Не здавайтеся",
         mText: "Кожен крок назад — це частина шляху. Ви можете почати знову просто зараз.",
         cancel: "Скасувати",
@@ -849,6 +972,8 @@ const i18n = {
         delModalTitle: "Видалення звички",
         delModalText: "Ви дійсно хочете видалити цю звичку?",
         delete: "Видалити",
+        welcome: "Привіт",
+        motivationBannerText: "Ваша головна мотивація",
         gName1: "Квиток у кіно", gReady1: "✅ Уже доступно!",
         gName2: "Нові кросівки", gReady2: "🔥 Майже Ваші",
         gName3: "Поїздка на вікенд", gReady3: "🌍 Час вирушати!",
@@ -857,7 +982,19 @@ const i18n = {
         gName6: "Перший внесок за авто", gReady6: "🏁 Велика ціль досягнута!"
     },
     cz: {
+        alertFields: "Vyplňte prosím všechna pole se správnými údaji.",
         addHabit: "+ Přidat zvyk",
+        onbTitle: "Vytvoření účtu",
+        onbSubtitle: "Zadejte několik základních údajů pro personalizaci vašeho motivačního trackeru.",
+        labelUsername: "Vaše jméno nebo Uživatelské jméno",
+        placeholderUser: "Například: Alex, Ghost",
+        labelAge: "Váš věk",
+        placeholderAge: "Například: 22",
+        labelGender: "Vaše pohlaví",
+        txtMale: "Muž", txtFemale: "Žena", txtOther: "Jiné",
+        labelMotivation: "Proč se chcete tohoto zvyku zbavit?",
+        placeholderMotiv: "Například: Koupit auto, zachovat zdraví",
+        btnContinue: "Pokračovat",
         setupTitle: "Cena Vašeho zvyku",
         setupSubtitle: "Proměňte každý den bez zlozvyku v reálný pokrok a úspory.",
         labelHabitName: "Jakého zvyku se vzdáváte?",
@@ -881,6 +1018,8 @@ const i18n = {
         delModalTitle: "Smazat zvyk",
         delModalText: "Opravdu chcete tento zvyk smazat?",
         delete: "Smazat",
+        welcome: "Ahoj",
+        motivationBannerText: "Vaše hlavní motivace",
         gName1: "Lístek do kina", gReady1: "✅ Již dostupné!",
         gName2: "Nové tenisky", gReady2: "🔥 Téměř Vaše",
         gName3: "Víkendový výlet", gReady3: "🌍 Čas vyrazit!",
@@ -889,7 +1028,19 @@ const i18n = {
         gName6: "Akontace na auto", gReady6: "🏁 Velký cíl splněn!"
     },
     en: {
+        alertFields: "Please fill in all fields with valid data.",
         addHabit: "+ Add Habit",
+        onbTitle: "Create Account",
+        onbSubtitle: "Enter a few basic details to personalize your motivation tracker.",
+        labelUsername: "Your Name or Username",
+        placeholderUser: "E.g., Alex, Ghost",
+        labelAge: "Your Age",
+        placeholderAge: "E.g., 22",
+        labelGender: "Your Gender",
+        txtMale: "Male", txtFemale: "Female", txtOther: "Other",
+        labelMotivation: "Why do you want to quit this habit?",
+        placeholderMotiv: "E.g., Buy a car, stay healthy",
+        btnContinue: "Continue",
         setupTitle: "The Price of Your Habit",
         setupSubtitle: "Turn every day without a bad habit into real progress and savings.",
         labelHabitName: "What habit are you quitting?",
@@ -913,6 +1064,8 @@ const i18n = {
         delModalTitle: "Delete Habit",
         delModalText: "Are you sure you want to delete this habit?",
         delete: "Delete",
+        welcome: "Hello",
+        motivationBannerText: "Your main motivation",
         gName1: "Movie ticket", gReady1: "✅ Already available!",
         gName2: "New sneakers", gReady2: "🔥 Almost yours",
         gName3: "Weekend trip", gReady3: "🌍 Time to go!",
@@ -924,8 +1077,19 @@ const i18n = {
 
 const body = document.body;
 const themeToggle = document.getElementById("themeToggle");
+
+// Екрани
+const onboardingScreen = document.getElementById("onboardingScreen");
 const setupScreen = document.getElementById("setupScreen");
 const dashboard = document.getElementById("dashboard");
+
+// Інпути Профілю
+const usernameInput = document.getElementById("usernameInput");
+const ageInput = document.getElementById("ageInput");
+const motivationInput = document.getElementById("motivationInput");
+const saveProfileBtn = document.getElementById("saveProfileBtn");
+
+// Інпути Звичок
 const habitInput = document.getElementById("habitInput");
 const weeklyMoneyInput = document.getElementById("weeklyMoneyInput");
 const dateInput = document.getElementById("dateInput");
@@ -934,7 +1098,10 @@ const deleteHabitBtn = document.getElementById("deleteHabitBtn");
 const setupTitle = document.getElementById("setupTitle");
 const habitName = document.getElementById("habitName");
 const tabsContainer = document.getElementById("tabsContainer");
+const userWelcome = document.getElementById("userWelcome");
+const motivationBanner = document.getElementById("motivationBanner");
 
+// Елементи таймера
 const yearsBox = document.getElementById("yearsBox");
 const monthsBox = document.getElementById("monthsBox");
 const yearsEl = document.getElementById("years");
@@ -967,9 +1134,16 @@ const goals = [
   { price: 4000, card: document.getElementById("goal6"), progress: document.getElementById("progress6"), text: document.getElementById("progressText6"), priceEl: document.getElementById("goalPrice6") }
 ];
 
-let appData = { habits: [], currentHabitId: null, language: "ua" };
+// Головний стейт додатку
+let appData = { 
+    userProfile: null, // Сюди підуть нікнейм, вік, стать, мотивація
+    habits: [], 
+    currentHabitId: null, 
+    language: "ua" 
+};
 let interval;
 let editingHabitId = null; 
+let selectedGenderValue = null;
 
 function getDeclension(number, words) {
   number = Math.abs(number) % 100;
@@ -1004,15 +1178,47 @@ function saveData() {
   localStorage.setItem("habitTrackerData", JSON.stringify(appData));
 }
 
+// Функція вибору статі (візуальне перемикання карток)
+function selectGender(gender) {
+  selectedGenderValue = gender;
+  document.querySelectorAll('.gender-card').forEach(card => card.classList.remove('selected'));
+  document.getElementById(`gender-${gender}`).classList.add('selected');
+}
+
+// Збереження профілю користувача
+saveProfileBtn.addEventListener("click", () => {
+  const username = usernameInput.value.trim();
+  const age = parseInt(ageInput.value);
+  const motivation = motivationInput.value.trim();
+
+  if (!username || isNaN(age) || !selectedGenderValue || !motivation) {
+    const activeLang = appData.language || 'ua';
+    alert(i18n[activeLang].alertFields);
+    return;
+  }
+
+  appData.userProfile = { username, age, gender: selectedGenderValue, motivation };
+  saveData();
+  
+  onboardingScreen.classList.add("hidden");
+  showSetup(null);
+});
+
 function loadData() {
     const saved = localStorage.getItem("habitTrackerData");
     if (saved) {
         appData = JSON.parse(saved);
         if (!appData.language) appData.language = "ua";
     }
+    
     changeLanguage(appData.language);
 
-    if (appData.habits && appData.habits.length > 0) {
+    // Маршрутизація екранів
+    if (!appData.userProfile) {
+        onboardingScreen.classList.remove("hidden");
+        setupScreen.classList.add("hidden");
+        dashboard.classList.add("hidden");
+    } else if (appData.habits && appData.habits.length > 0) {
         if (!appData.currentHabitId) appData.currentHabitId = appData.habits[0].id;
         showDashboard();
     } else {
@@ -1020,7 +1226,7 @@ function loadData() {
     }
 }
 
-/* ОНОВЛЕНА ФУНКЦІЯ ПЕРЕКЛАДУ — ОНОВЛЮЄ ВСІ ЕЛЕМЕНТИ ІНТЕРФЕЙСУ ОДНОЧАСНО */
+/* ФУНКЦІЯ ПЕРЕКЛАДУ — ОНОВЛЮЄ ВСІ ТЕКСТИ ОДНОЧАСНО */
 function changeLanguage(lang) {
     appData.language = lang;
     saveData();
@@ -1031,7 +1237,22 @@ function changeLanguage(lang) {
 
     const dict = i18n[lang] || i18n['ua'];
 
-    // Екран налаштувань
+    // Екран реєстрації (Onboarding)
+    document.getElementById("onbTitle").textContent = dict.onbTitle;
+    document.getElementById("onbSubtitle").textContent = dict.onbSubtitle;
+    document.getElementById("labelUsername").textContent = dict.labelUsername;
+    usernameInput.placeholder = dict.placeholderUser;
+    document.getElementById("labelAge").textContent = dict.labelAge;
+    ageInput.placeholder = dict.placeholderAge;
+    document.getElementById("labelGender").textContent = dict.labelGender;
+    document.getElementById("txtMale").textContent = dict.txtMale;
+    document.getElementById("txtFemale").textContent = dict.txtFemale;
+    document.getElementById("txtOther").textContent = dict.txtOther;
+    document.getElementById("labelMotivation").textContent = dict.labelMotivation;
+    motivationInput.placeholder = dict.placeholderMotiv;
+    saveProfileBtn.textContent = dict.btnContinue;
+
+    // Екран налаштувань звички
     if (!editingHabitId) {
         setupTitle.textContent = dict.setupTitle;
     } else {
@@ -1071,6 +1292,10 @@ function changeLanguage(lang) {
     }
 
     renderTabs();
+    if (appData.userProfile) {
+        userWelcome.textContent = `${dict.welcome}, ${appData.userProfile.username}! 👋`;
+        motivationBanner.innerHTML = `${dict.motivationBannerText}: <span>${appData.userProfile.motivation}</span>`;
+    }
     if (appData.habits && appData.habits.length > 0) {
         updateDashboard();
     }
@@ -1086,7 +1311,8 @@ function saveHabitAction() {
   const startDate = dateInput.value;
 
   if (!name || isNaN(weeklyMoney) || !startDate) {
-    alert(appData.language === 'ua' ? "Будь ласка, заповніть усі поля правильними даними." : (appData.language === 'cz' ? "Vyplňte prosím všechna pole se správnými údaji." : "Please fill in all fields with valid data."));
+    const activeLang = appData.language || 'ua';
+    alert(i18n[activeLang].alertFields);
     return;
   }
 
@@ -1139,6 +1365,7 @@ deleteHabitBtn.addEventListener("click", deleteCurrentHabit);
 
 function showSetup(habitIdToEdit = null) {
   clearInterval(interval);
+  onboardingScreen.classList.add("hidden");
   setupScreen.classList.remove("hidden");
   dashboard.classList.add("hidden");
 
@@ -1174,6 +1401,7 @@ changeSettingsBtn.addEventListener("click", () => {
 });
 
 function showDashboard() {
+  onboardingScreen.classList.add("hidden");
   setupScreen.classList.add("hidden");
   dashboard.classList.remove("hidden");
   renderTabs();
