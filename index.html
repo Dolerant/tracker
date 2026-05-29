@@ -1236,7 +1236,7 @@ function renderTabs() {
       deleteBtn.onmouseout = () => deleteBtn.style.color = "rgba(255,255,255,0.4)";
 
       // Логіка видалення при кліку на хрестик
-      deleteBtn.addEventListener("click", (e) => {
+    deleteBtn.addEventListener("click", (e) => {
         e.stopPropagation(); // Зупиняємо перемикання на вкладку
 
         const modal = document.getElementById("customConfirmModal");
@@ -1258,6 +1258,20 @@ function renderTabs() {
                 appData.currentHabitId = appData.habits.length > 0 ? appData.habits[0].id : null;
             }
 
+            saveData();
+            renderTabs();
+            if (typeof updateDashboard === 'function') updateDashboard();
+            modal.style.display = "none";
+        };
+
+        // Клік на «Скасувати»
+        document.getElementById("confirmCancelBtn").onclick = function() {
+            modal.style.display = "none";
+        };
+    });
+
+    button.appendChild(deleteBtn);
+}
             saveData();
             renderTabs();
             if (typeof updateDashboard === 'function') updateDashboard();
