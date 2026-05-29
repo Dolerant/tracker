@@ -771,55 +771,65 @@
         border-radius: 16px;
       }
       /* Стилі для перемикача мов у верхньому кутку */
+/* Панель керування у правому верхньому кутку */
+.top-controls-panel {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    padding: 6px 14px !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
 .lang-switcher {
-    position: fixed;
-    top: 25px;
-    right: 80px; /* Стає акуратно ліворуч від кнопки теми */
-    z-index: 1000;
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    font-family: sans-serif;
-    font-weight: bold;
-    font-size: 14px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 6px 12px;
-    border-radius: 20px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.6);
+    display: flex !important;
+    gap: 6px !important;
+    align-items: center !important;
+    font-family: sans-serif !important;
+    font-weight: bold !important;
+    font-size: 13px !important;
+    color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .lang-btn {
-    cursor: pointer;
-    transition: color 0.2s, transform 0.1s;
+    cursor: pointer !important;
+    transition: color 0.2s !important;
+    padding: 2px 4px !important;
 }
 
 .lang-btn:hover {
-    color: #fff;
+    color: #fff !important;
 }
 
 .lang-btn.active {
-    color: #4dadff; /* Гарний блакитний колір для активної мови */
-    text-shadow: 0 0 8px rgba(77, 173, 255, 0.5);
+    color: #4dadff !important;
+    text-shadow: 0 0 8px rgba(77, 173, 255, 0.6) !important;
 }
 
 .lang-divider {
-    color: rgba(255, 255, 255, 0.2);
-    user-select: none;
+    color: rgba(255, 255, 255, 0.15) !important;
+    user-select: none !important;
 }
   </style>
 </head>
 <body>
 
-<div class="lang-switcher">
-    <span class="lang-btn" id="lang-ua" onclick="changeLanguage('ua')">UA</span>
-    <span class="lang-divider">|</span>
-    <span class="lang-btn" id="lang-cz" onclick="changeLanguage('cz')">CZ</span>
-    <span class="lang-divider">|</span>
-    <span class="lang-btn" id="lang-en" onclick="changeLanguage('en')">EN</span>
+<div class="top-controls-panel">
+    <div class="lang-switcher">
+        <span class="lang-btn" id="lang-ua" onclick="changeLanguage('ua')">UA</span>
+        <span class="lang-divider">|</span>
+        <span class="lang-btn" id="lang-cz" onclick="changeLanguage('cz')">CZ</span>
+        <span class="lang-divider">|</span>
+        <span class="lang-btn" id="lang-en" onclick="changeLanguage('en')">EN</span>
+    </div>
+    <button class="theme-toggle" id="themeToggle" style="position: static;">☀️</button>
 </div>
-<button class="theme-toggle" id="themeToggle">☀️</button>
 
 <div id="setupScreen" class="setup-screen">
   <div class="setup-card glass">
