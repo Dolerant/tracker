@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Трекер-мотиватор | Мультизвички</title>
-<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/785/785116.png" type="image/png">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/785/785116.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -130,7 +130,7 @@
     }
 
     .theme-toggle:hover {
-      transform: translateY(-2px) scale(1.02);
+      transform: translateY(-2px scale(1.02);
       background: var(--card-hover);
     }
 
@@ -770,52 +770,53 @@
         padding: 12px 16px;
         border-radius: 16px;
       }
-      /* Стилі для перемикача мов у верхньому кутку */
-/* Панель керування у правому верхньому кутку */
-.top-controls-panel {
-    position: fixed !important;
-    top: 20px !important;
-    right: 20px !important;
-    z-index: 9999 !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 15px !important;
-    background: rgba(255, 255, 255, 0.08) !important;
-    padding: 6px 14px !important;
-    border-radius: 20px !important;
-    backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
+    }
 
-.lang-switcher {
-    display: flex !important;
-    gap: 6px !important;
-    align-items: center !important;
-    font-family: sans-serif !important;
-    font-weight: bold !important;
-    font-size: 13px !important;
-    color: rgba(255, 255, 255, 0.4) !important;
-}
+    /* Стилі для перемикача мов у верхньому кутку */
+    .top-controls-panel {
+        position: fixed !important;
+        top: 20px !important;
+        right: 20px !important;
+        z-index: 9999 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 15px !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        padding: 6px 14px !important;
+        border-radius: 20px !important;
+        backdrop-filter: blur(10px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
 
-.lang-btn {
-    cursor: pointer !important;
-    transition: color 0.2s !important;
-    padding: 2px 4px !important;
-}
+    .lang-switcher {
+        display: flex !important;
+        gap: 6px !important;
+        align-items: center !important;
+        font-family: sans-serif !important;
+        font-weight: bold !important;
+        font-size: 13px !important;
+        color: rgba(255, 255, 255, 0.4) !important;
+    }
 
-.lang-btn:hover {
-    color: #fff !important;
-}
+    .lang-btn {
+        cursor: pointer !important;
+        transition: color 0.2s !important;
+        padding: 2px 4px !important;
+    }
 
-.lang-btn.active {
-    color: #4dadff !important;
-    text-shadow: 0 0 8px rgba(77, 173, 255, 0.6) !important;
-}
+    .lang-btn:hover {
+        color: #fff !important;
+    }
 
-.lang-divider {
-    color: rgba(255, 255, 255, 0.15) !important;
-    user-select: none !important;
-}
+    .lang-btn.active {
+        color: #4dadff !important;
+        text-shadow: 0 0 8px rgba(77, 173, 255, 0.6) !important;
+    }
+
+    .lang-divider {
+        color: rgba(255, 255, 255, 0.15) !important;
+        user-select: none !important;
+    }
   </style>
 </head>
 <body>
@@ -847,16 +848,15 @@
     <div class="input-group">
       <label>Скільки грошей Ви витрачали на це на ТИЖДЕНЬ?</label>
       <div class="input-wrapper">
-       <select id="currencySelect" style="background: transparent; color: #22c55e; border: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; -moz-appearance: none; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); z-index: 10;">
-  <option value="USD" style="background: #1e1e24; color: #fff;">$</option>
-  <option value="UAH" style="background: #1e1e24; color: #fff;">₴</option>
-  <option value="CZK" style="background: #1e1e24; color: #fff;">Kč</option>
-  <option value="EUR" style="background: #1e1e24; color: #fff;">€</option>
-</select>
+        <select id="currencySelect" style="background: transparent; color: #22c55e; border: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; -moz-appearance: none; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); z-index: 10;">
+          <option value="USD" style="background: #1e1e24; color: #fff;">$</option>
+          <option value="UAH" style="background: #1e1e24; color: #fff;">₴</option>
+          <option value="CZK" style="background: #1e1e24; color: #fff;">Kč</option>
+          <option value="EUR" style="background: #1e1e24; color: #fff;">€</option>
+        </select>
         <input type="number" id="weeklyMoneyInput" class="input money-input" style="padding-left: 45px;" placeholder="Наприклад: 50" />
       </div>
     </div>
-
 
     <div class="input-group">
       <label>Дата та час останнього зриву / старту</label>
@@ -926,7 +926,7 @@
       <div class="goal-card glass" id="goal1">
         <div class="goal-icon">🎬</div>
         <div class="goal-name">Квиток у кіно</div>
-        <div class="goal-price">$10</div>
+        <div class="goal-price" id="goalPrice1">$10</div>
         <div class="progress"><div class="progress-fill" id="progress1"></div></div>
         <div class="progress-text" id="progressText1">0%</div>
         <div class="goal-ready">✅ Уже доступно!</div>
@@ -934,7 +934,7 @@
       <div class="goal-card glass" id="goal2">
         <div class="goal-icon">👟</div>
         <div class="goal-name">Нові кросівки</div>
-        <div class="goal-price">$120</div>
+        <div class="goal-price" id="goalPrice2">$120</div>
         <div class="progress"><div class="progress-fill" id="progress2"></div></div>
         <div class="progress-text" id="progressText2">0%</div>
         <div class="goal-ready">🔥 Майже Ваші</div>
@@ -942,7 +942,7 @@
       <div class="goal-card glass" id="goal3">
         <div class="goal-icon">✈️</div>
         <div class="goal-name">Поїздка на вікенд</div>
-        <div class="goal-price">$300</div>
+        <div class="goal-price" id="goalPrice3">$300</div>
         <div class="progress"><div class="progress-fill" id="progress3"></div></div>
         <div class="progress-text" id="progressText3">0%</div>
         <div class="goal-ready">🌍 Час вирушати!</div>
@@ -950,7 +950,7 @@
       <div class="goal-card glass" id="goal4">
         <div class="goal-icon">📱</div>
         <div class="goal-name">Новий смартфон</div>
-        <div class="goal-price">$1000</div>
+        <div class="goal-price" id="goalPrice4">$1000</div>
         <div class="progress"><div class="progress-fill" id="progress4"></div></div>
         <div class="progress-text" id="progressText4">0%</div>
         <div class="goal-ready">🚀 Ви це зробили!</div>
@@ -958,7 +958,7 @@
       <div class="goal-card glass" id="goal5">
         <div class="goal-icon">💻</div>
         <div class="goal-name">Новий ноутбук</div>
-        <div class="goal-price">$1000</div>
+        <div class="goal-price" id="goalPrice5">$1000</div>
         <div class="progress"><div class="progress-fill" id="progress5"></div></div>
         <div class="progress-text" id="progressText5">0%</div>
         <div class="goal-ready">💼 Потужне оновлення!</div>
@@ -966,7 +966,7 @@
       <div class="goal-card glass" id="goal6">
         <div class="goal-icon">🚗</div>
         <div class="goal-name">Вживане авто / Перший внесок</div>
-        <div class="goal-price">$4000</div>
+        <div class="goal-price" id="goalPrice6">$4000</div>
         <div class="progress"><div class="progress-fill" id="progress6"></div></div>
         <div class="progress-text" id="progressText6">0%</div>
         <div class="goal-ready">🏁 Велика ціль досягнута!</div>
@@ -1002,6 +1002,7 @@
     </div>
   </div>
 </div>
+
 <script>
 /* =========================================
    LOCALIZATION DICTIONARY (UA / CZ / EN)
@@ -1049,7 +1050,7 @@ const i18n = {
 };
 
 /* ==========================================================================
-    ELEMENTS
+   ELEMENTS
 ========================================================================== */
 const body = document.body;
 const themeToggle = document.getElementById("themeToggle");
@@ -1094,12 +1095,12 @@ const changeSettingsBtn = document.getElementById("changeSettingsBtn");
 
 /* GOALS */
 const goals = [
-  { price: 10, card: document.getElementById("goal1"), progress: document.getElementById("progress1"), text: document.getElementById("progressText1") },
-  { price: 120, card: document.getElementById("goal2"), progress: document.getElementById("progress2"), text: document.getElementById("progressText2") },
-  { price: 300, card: document.getElementById("goal3"), progress: document.getElementById("progress3"), text: document.getElementById("progressText3") },
-  { price: 1000, card: document.getElementById("goal4"), progress: document.getElementById("progress4"), text: document.getElementById("progressText4") },
-  { price: 1000, card: document.getElementById("goal5"), progress: document.getElementById("progress5"), text: document.getElementById("progressText5") },
-  { price: 4000, card: document.getElementById("goal6"), progress: document.getElementById("progress6"), text: document.getElementById("progressText6") }
+  { price: 10, card: document.getElementById("goal1"), progress: document.getElementById("progress1"), text: document.getElementById("progressText1"), priceEl: document.getElementById("goalPrice1") },
+  { price: 120, card: document.getElementById("goal2"), progress: document.getElementById("progress2"), text: document.getElementById("progressText2"), priceEl: document.getElementById("goalPrice2") },
+  { price: 300, card: document.getElementById("goal3"), progress: document.getElementById("progress3"), text: document.getElementById("progressText3"), priceEl: document.getElementById("goalPrice3") },
+  { price: 1000, card: document.getElementById("goal4"), progress: document.getElementById("progress4"), text: document.getElementById("progressText4"), priceEl: document.getElementById("goalPrice4") },
+  { price: 1000, card: document.getElementById("goal5"), progress: document.getElementById("progress5"), text: document.getElementById("progressText5"), priceEl: document.getElementById("goalPrice5") },
+  { price: 4000, card: document.getElementById("goal6"), progress: document.getElementById("progress6"), text: document.getElementById("progressText6"), priceEl: document.getElementById("goalPrice6") }
 ];
 
 /* =========================================
@@ -1111,7 +1112,7 @@ let appData = {
     language: "ua"
 };
 let interval;
-let editingHabitId = null; // Зберігає ID звички, яку ми зараз редагуємо (null = створення нової)
+let editingHabitId = null; 
 
 /* =========================================
    DECLENSION (Слова під українські числа)
@@ -1159,13 +1160,11 @@ function loadData() {
     const saved = localStorage.getItem("habitTrackerData");
     if (saved) {
         appData = JSON.parse(saved);
-        // Страховка: якщо в старих збережених даних немає мови, задаємо українську
         if (!appData.language) {
             appData.language = "ua";
         }
     }
     
-    // Запускаємо ініціалізацію мови при старті сайту
     changeLanguage(appData.language);
 
     if (appData.habits && appData.habits.length > 0) {
@@ -1174,28 +1173,23 @@ function loadData() {
         }
         showDashboard();
     } else {
-        showSetup(null); // Порожній запуск — створення першої звички
+        showSetup(null); 
     }
 }
 
 function changeLanguage(lang) {
-    // 1. Записуємо вибрану мову в наші глобальні дані
     appData.language = lang;
     saveData();
 
-    // 2. Оновлюємо візуальну підсвітку кнопок мови в кутку сайту
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
     const activeBtn = document.getElementById(`lang-${lang}`);
     if (activeBtn) activeBtn.classList.add('active');
 
-    // 3. Перекладаємо елементи
     const currentLabels = i18n[lang];
     
-    // Переклад кнопки додавання звички
     const addBtnEl = document.querySelector('.add-tab-btn');
     if (addBtnEl) addBtnEl.textContent = currentLabels.addHabit;
 
-    // Переклад заголовків у модалці налаштувань / створення
     const setupTitleEl = document.getElementById('setupTitle');
     if (setupTitleEl) {
         if (!editingHabitId) {
@@ -1203,12 +1197,6 @@ function changeLanguage(lang) {
         }
     }
 
-    // Перезапускаємо рендер, щоб оновити інші тексти на екрані
-    renderTabs();
-    if (typeof updateDashboard === 'function') updateDashboard();
-}
-
-    // Перезапускаємо рендер, щоб оновити інші тексти на екрані
     renderTabs();
     if (typeof updateDashboard === 'function') updateDashboard();
 }
@@ -1231,7 +1219,6 @@ function saveHabitAction() {
   }
 
   if (editingHabitId) {
-    // Редагування існуючої звички
     const habit = appData.habits.find(h => h.id === editingHabitId);
     if (habit) {
       habit.name = name;
@@ -1241,8 +1228,7 @@ function saveHabitAction() {
     }
     appData.currentHabitId = editingHabitId;
     editingHabitId = null;
-   } else {
-    // Створення нової звички з перевіркою масиву
+  } else {
     if (!appData.habits || !Array.isArray(appData.habits)) {
       appData.habits = [];
     }
@@ -1269,11 +1255,9 @@ startBtn.addEventListener("click", saveHabitAction);
 function deleteCurrentHabit() {
     if (!editingHabitId) return;
     
-    // Знаходимо нашу кастомну модалку і показуємо її
     const modal = document.getElementById("customConfirmModal");
     modal.style.display = "flex";
 
-    // Вішаємо подію на кнопку «Видалити» всередині модалки
     document.getElementById("confirmDeleteBtn").onclick = function() {
         appData.habits = appData.habits.filter(h => h.id !== editingHabitId);
         editingHabitId = null;
@@ -1286,12 +1270,11 @@ function deleteCurrentHabit() {
 
         saveData();
         loadData();
-        modal.style.display = "none"; // Ховаємо модалку після видалення
+        modal.style.display = "none";
     };
 
-    // Вішаємо подію на кнопку «Скасувати»
     document.getElementById("confirmCancelBtn").onclick = function() {
-        modal.style.display = "none"; // Просто ховаємо модалку
+        modal.style.display = "none";
     };
 }
 
@@ -1306,7 +1289,6 @@ function showSetup(habitIdToEdit = null) {
   dashboard.classList.add("hidden");
 
   if (habitIdToEdit) {
-    // Входимо в режим редагування конкретної вкладки
     editingHabitId = habitIdToEdit;
     const habit = appData.habits.find(h => h.id === habitIdToEdit);
     setupTitle.textContent = "Редагування звички";
@@ -1316,7 +1298,6 @@ function showSetup(habitIdToEdit = null) {
     document.getElementById("currencySelect").value = habit.currency || 'USD';
     deleteHabitBtn.classList.remove("hidden");
   } else {
-    // Режим додавання НОВОЇ звички
     editingHabitId = null;
     setupTitle.textContent = "Ціна Вашої звички";
     habitInput.value = "";
@@ -1355,19 +1336,16 @@ function renderTabs() {
 
     if (appData.habits && appData.habits.length > 0) {
         appData.habits.forEach(habit => {
-            // Створюємо саму вкладку
             const button = document.createElement("button");
             button.className = "tab-btn";
             if (habit.id === appData.currentHabitId) {
                 button.classList.add("active");
             }
 
-            // Текст із назвою звички
             const textSpan = document.createElement("span");
             textSpan.textContent = habit.name;
             button.appendChild(textSpan);
 
-            // Маленький хрестик для видалення
             const deleteBtn = document.createElement("span");
             deleteBtn.innerHTML = " &times;";
             deleteBtn.style.marginLeft = "10px";
@@ -1379,22 +1357,17 @@ function renderTabs() {
             deleteBtn.onmouseover = () => deleteBtn.style.color = "#ff4d4d";
             deleteBtn.onmouseout = () => deleteBtn.style.color = "rgba(255,255,255,0.4)";
 
-            // Логіка видалення при кліку на хрестик
             deleteBtn.addEventListener("click", (e) => {
-                e.stopPropagation(); // Зупиняємо перемикання на вкладку
+                e.stopPropagation(); 
 
                 const modal = document.getElementById("customConfirmModal");
-                
-                // Динамічно міняємо текст у модалці під конкретну звичку
                 const modalText = modal.querySelector("p");
                 if (modalText) {
                     modalText.textContent = `Ви дійсно хочете видалити звичку "${habit.name}"? Цю дію не можна буде скасувати.`;
                 }
 
-                // Показуємо модалку
                 modal.style.display = "flex";
 
-                // Клік на «Видалити» всередині модалки
                 document.getElementById("confirmDeleteBtn").onclick = function() {
                     appData.habits = appData.habits.filter(h => h.id !== habit.id);
 
@@ -1408,7 +1381,6 @@ function renderTabs() {
                     modal.style.display = "none";
                 };
 
-                // Клік на «Скасувати»
                 document.getElementById("confirmCancelBtn").onclick = function() {
                     modal.style.display = "none";
                 };
@@ -1416,7 +1388,6 @@ function renderTabs() {
 
             button.appendChild(deleteBtn);
 
-            // Клік на вкладку для перемикання
             button.addEventListener("click", () => {
                 appData.currentHabitId = habit.id;
                 saveData();
@@ -1428,22 +1399,30 @@ function renderTabs() {
         });
     }
 
-    // Твоя рідна кнопка додавання нової звички (повертаємо її на місце)
     const addButton = document.createElement("button");
     addButton.className = "add-tab-btn";
-    addButton.textContent = "+ Додати звичку";
+    addButton.textContent = appData.language === 'ua' ? "+ Додати звичку" : (appData.language === 'cz' ? "+ Přidat zvyk" : "+ Add Habit");
     addButton.addEventListener("click", () => showSetup(null));
     tabsContainer.appendChild(addButton);
 }
+
 /* =========================================
    UPDATE LOGIC (МАТЕМАТИКА ТАЙМЕРА Й КОШТІВ)
 ========================================= */
 function updateDashboard() {
   const habit = getCurrentHabit();
   if (!habit) return;
-  const currentCurrency = habit.currency || '$';
 
-  habitName.textContent = `Ви відмовляєтеся від: ${habit.name}`;
+  // Мапа для правильного відображення знаків валют
+  const currencyMap = {
+     'USD': '$',
+     'UAH': '₴',
+     'CZK': 'Kč',
+     'EUR': '€'
+  };
+  const currentCurrency = currencyMap[habit.currency] || habit.currency || '$';
+
+  habitName.textContent = appData.language === 'ua' ? `Ви відмовляєтеся від: ${habit.name}` : (appData.language === 'cz' ? `Vzdáváte se: ${habit.name}` : `You are quitting: ${habit.name}`);
 
   const now = new Date();
   const start = new Date(habit.startDate);
@@ -1451,13 +1430,11 @@ function updateDashboard() {
 
   if (diffMs < 0) diffMs = 0;
 
-  // Рахуємо повні компоненти часу
   const totalSeconds = Math.floor(diffMs / 1000);
   const totalMinutes = Math.floor(totalSeconds / 60);
   const totalHours = Math.floor(totalMinutes / 60);
   const totalDays = Math.floor(totalHours / 24);
 
-  // Розрахунок років та місяців для розширеного відображення
   let years = now.getFullYear() - start.getFullYear();
   let months = now.getMonth() - start.getMonth();
   let days = now.getDate() - start.getDate();
@@ -1472,11 +1449,10 @@ function updateDashboard() {
     months += 12;
   }
 
-  // Відображення/приховування років та місяців
   if (years > 0) {
     yearsBox.classList.remove("hidden");
     yearsEl.textContent = years;
-    yearsLabel.textContent = getDeclension(years, ["рік", "роки", "років"]);
+    yearsLabel.textContent = appData.language === 'ua' ? getDeclension(years, ["рік", "роки", "років"]) : (appData.language === 'cz' ? "let" : "years");
   } else {
     yearsBox.classList.add("hidden");
   }
@@ -1484,39 +1460,38 @@ function updateDashboard() {
   if (months > 0 || years > 0) {
     monthsBox.classList.remove("hidden");
     monthsEl.textContent = months;
-    monthsLabel.textContent = getDeclension(months, ["місяць", "місяці", "місяців"]);
+    monthsLabel.textContent = appData.language === 'ua' ? getDeclension(months, ["місяць", "місяці", "місяців"]) : (appData.language === 'cz' ? "měsíců" : "months");
     
-    // Якщо показуємо місяці, то дні показуємо залишковими від поточного місяця
     daysEl.textContent = days;
-    daysLabel.textContent = getDeclension(days, ["день", "дні", "днів"]);
+    daysLabel.textContent = appData.language === 'ua' ? getDeclension(days, ["день", "дні", "днів"]) : (appData.language === 'cz' ? "dní" : "days");
   } else {
     monthsBox.classList.add("hidden");
-    // Якщо місяців немає — показуємо чисту загальну кількість днів від старту
     daysEl.textContent = totalDays;
-    daysLabel.textContent = getDeclension(totalDays, ["день", "дні", "днів"]);
+    daysLabel.textContent = appData.language === 'ua' ? getDeclension(totalDays, ["день", "дні", "днів"]) : (appData.language === 'cz' ? "dní" : "days");
   }
 
-  // Години, хвилини, секунди
   const displayHours = totalHours % 24;
   const displayMinutes = totalMinutes % 60;
   const displaySeconds = totalSeconds % 60;
 
   hoursEl.textContent = displayHours;
-  hoursLabel.textContent = getDeclension(displayHours, ["година", "години", "годин"]);
+  hoursLabel.textContent = appData.language === 'ua' ? getDeclension(displayHours, ["година", "години", "годин"]) : (appData.language === 'cz' ? "hodin" : "hours");
 
   minutesEl.textContent = displayMinutes;
-  minutesLabel.textContent = getDeclension(displayMinutes, ["хвилина", "хвилини", "хвилин"]);
+  minutesLabel.textContent = appData.language === 'ua' ? getDeclension(displayMinutes, ["хвилина", "хвилини", "хвилин"]) : (appData.language === 'cz' ? "minut" : "minutes");
 
   secondsEl.textContent = displaySeconds;
-  secondsLabel.textContent = getDeclension(displaySeconds, ["секунда", "секунди", "секунд"]);
+  secondsLabel.textContent = appData.language === 'ua' ? getDeclension(displaySeconds, ["секунда", "секунди", "секунд"]) : (appData.language === 'cz' ? "sekund" : "seconds");
 
-  // Розрахунок грошей: за 1 секунду капає (Тижнева сума / 7 днів / 24 години / 3600 секунд)
   const moneyPerSecond = habit.weeklyMoney / 7 / 24 / 3600;
   const totalMoneySaved = totalSeconds * moneyPerSecond;
   moneySavedEl.textContent = `${currentCurrency} ${totalMoneySaved.toFixed(2)}`;
 
-  // Оновлення карток цілей
   goals.forEach(goal => {
+    if(goal.priceEl) {
+        goal.priceEl.textContent = `${currentCurrency} ${goal.price}`;
+    }
+
     let percent = (totalMoneySaved / goal.price) * 100;
     if (percent > 100) percent = 100;
 
@@ -1558,7 +1533,6 @@ confirmReset.addEventListener("click", () => {
   modal.classList.add("hidden");
 });
 
-// Закриття модалки при кліку навколо картки
 modal.addEventListener("click", (e) => {
   if (e.target === modal) modal.classList.add("hidden");
 });
