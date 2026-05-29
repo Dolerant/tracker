@@ -1051,8 +1051,9 @@ const goals = [
    APP DATA & STATE
 ========================================= */
 let appData = {
-  habits: [],
-  currentHabitId: null
+    habits: [],
+    currentHabitId: null,
+    language: "ua"
 };
 let interval;
 let editingHabitId = null; // Зберігає ID звички, яку ми зараз редагуємо (null = створення нової)
@@ -1100,18 +1101,22 @@ function saveData() {
 }
 
 function loadData() {
-  const saved = localStorage.getItem("habitTrackerData");
-  if (saved) {
-    appData = JSON.parse(saved);
-  }
-  if (appData.habits && appData.habits.length > 0) {
-    if (!appData.currentHabitId) {
-      appData.currentHabitId = appData.habits[0].id;
+    const saved = localStorage.getItem("habitTrackerData");
+    if (saved) {
+        appData = JSON.parse(saved);
+        // Страховка: якщо в старих збережених даних немає мови, задаємо українську
+        if (!appData.language) {
+            appData.language = "ua";
+        }
     }
-    showDashboard();
-  } else {
-    showSetup(null); // Порожній запуск — створення першої звички
-  }
+    if (appData.habits && appData.habits.length > 0) {
+        if (!appData.currentHabitId) {
+            appData.currentHabitId = appData.habits[0].id;
+        }
+        showDashboard();
+    } else {
+        showSetup(null); // Порожній запуск — створення першої звички
+    }
 }
 
 /* =========================================
