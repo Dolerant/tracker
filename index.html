@@ -1244,13 +1244,13 @@ function renderTabs() {
         // Динамічно міняємо текст у модалці під конкретну звичку
         const modalText = modal.querySelector("p");
         if (modalText) {
-            modalText.textContent = `Ви дійсно хочете видалити звичку "${habit.name}"? Цю дію не можна буде скасувати.`;
+            modalText.textContent = `Ви дійсно хочете видалити звичку "${habit.name}"? Цю дію не можна bude скасувати.`;
         }
 
         // Показуємо модалку
         modal.style.display = "flex";
 
-        // Кліку на «Видалити» всередині модалки
+        // Клік на «Видалити» всередині модалки
         document.getElementById("confirmDeleteBtn").onclick = function() {
             appData.habits = appData.habits.filter(h => h.id !== habit.id);
 
@@ -1271,40 +1271,24 @@ function renderTabs() {
     });
 
     button.appendChild(deleteBtn);
-}
-            saveData();
-            renderTabs();
-            if (typeof updateDashboard === 'function') updateDashboard();
-            modal.style.display = "none";
-        };
 
-        // Клік на «Скасувати»
-        document.getElementById("confirmCancelBtn").onclick = function() {
-            modal.style.display = "none";
-        };
-    });
-      });
-
-      button.appendChild(deleteBtn);
-
-      // Клік на вкладку для перемикання
-      button.addEventListener("click", () => {
+    // Клік на вкладку для перемикання
+    button.addEventListener("click", () => {
         appData.currentHabitId = habit.id;
         saveData();
         renderTabs();
         if (typeof updateDashboard === 'function') updateDashboard();
-      });
-
-      tabsContainer.appendChild(button);
     });
-  }
 
-  // Твоя рідна кнопка додавання нової звички (повертаємо її на місце)
-  const addButton = document.createElement("button");
-  addButton.className = "add-tab-btn";
-  addButton.textContent = "+ Додати звичку";
-  addButton.addEventListener("click", () => showSetup(null));
-  tabsContainer.appendChild(addButton);
+    tabsContainer.appendChild(button);
+});
+
+    // Твоя рідна кнопка додавання нової звички (повертаємо її на місце)
+    const addButton = document.createElement("button");
+    addButton.className = "add-tab-btn";
+    addButton.textContent = "+ Додати звичку";
+    addButton.addEventListener("click", () => showSetup(null));
+    tabsContainer.appendChild(addButton);
 }
 
 /* =========================================
