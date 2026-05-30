@@ -1636,43 +1636,63 @@ function updateDashboard() {
   const totalMoneySaved = totalSeconds * moneyPerSecond;
   moneySavedEl.textContent = `${currentCurrency} ${totalMoneySaved.toFixed(2)}`;
 
-  // === ОНОВЛЕНИЙ ДИНАМІЧНИЙ РЕНДЕРИНГ КАРТОК ЦІЛЕЙ ===
+  // === ОНОВЛЕНИЙ ДИНАМІЧНИЙ РЕНДЕРИНГ КАРТОК ЦІЛЕЙ (З КОНВЕРТАЦІЄЮ Б) ===
     const goalsGrid = document.getElementById("goalsGrid");
     if (goalsGrid) {
       goalsGrid.innerHTML = "";
       const lang = appData.language || 'ua';
       
-      // Оновлюємо текст на кнопці додавання цілі згідно з мовою
+      // Фікс двох плюсиків: забираємо "+" з тексту кнопки
       if (document.getElementById("textAddGoalBtn")) {
-        document.getElementById("textAddGoalBtn").textContent = i18n[lang].addGoalBtn || "Додати ціль";
+        let btnText = "Додати ціль";
+        if (i18n[lang] && i18n[lang].addGoalBtn) {
+          btnText = i18n[lang].addGoalBtn.replace("+", "").trim();
+        }
+        document.getElementById("textAddGoalBtn").textContent = btnText;
       }
+
+      // Базові курси валют відносно Чеської крони (Kč)
+      const rates = {
+        'Kč': 1, 'CZK': 1,
+        'UAH': 0.6, '₴': 0.6,
+        'USD': 23, '$': 23,
+        'EUR': 25, '€': 25
+      };
+
+      // Поточний курс для валюти вибраної звички
+      const currentRate = rates[currentCurrency] || 1;
 
       if (appData.customGoals && appData.customGoals.length > 0) {
         appData.customGoals.forEach(goal => {
-          const percent = totalMoneySaved >= goal.price ? 100 : Math.floor((totalMoneySaved / goal.price) * 100);
+          // Динамічний перерахунок ціни під валюту звички
+          const convertedPrice = (currentCurrency === 'Kč' || currentCurrency === 'CZK') 
+            ? goal.price 
+            : Math.round(goal.price / currentRate);
+
+          // Прогрес рахується відносно конвертованої вартості
+          const percent = totalMoneySaved >= convertedPrice ? 100 : Math.floor((totalMoneySaved / convertedPrice) * 100);
           
           const card = document.createElement("div");
-          card.className = "goal-card glass"; // Зберігаємо твій фірмовий стиль glass
+          card.className = "goal-card glass"; 
           if (percent === 100) card.classList.add("active");
 
           card.innerHTML = `
             <div class="goal-delete-btn">&times;</div>
             <div class="goal-emoji" style="font-size: 32px; margin-bottom: 8px; text-align: center;">${goal.emoji}</div>
             <div class="goal-name" style="font-weight: 700; font-size: 16px; margin-bottom: 4px; text-align: center;">${goal.name}</div>
-            <div class="goal-price" style="opacity: 0.7; font-size: 14px; margin-bottom: 12px; text-align: center;">${goal.price} ${currentCurrency}</div>
+            <div class="goal-price" style="opacity: 0.7; font-size: 14px; margin-bottom: 12px; text-align: center;">${convertedPrice} ${currentCurrency}</div>
             <div class="progress" style="background: rgba(255,255,255,0.1); border-radius: 10px; height: 8px; overflow: hidden; margin-bottom: 6px;">
               <div class="progress-fill" style="width: ${percent}%; height: 100%; background: linear-gradient(135deg, var(--accent-main), var(--accent-second)); transition: width 0.3s ease;"></div>
             </div>
             <div class="progress-text" style="font-size: 12px; font-weight: 800; text-align: right;">${percent}%</div>
           `;
 
-          // Логіка видалення картки через кастомне вікно підтвердження
+          // Логіка видалення картки через модалку підтвердження
           card.querySelector(".goal-delete-btn").addEventListener("click", (e) => {
             e.stopPropagation();
             const confirmModal = document.getElementById("customConfirmModal");
             if (confirmModal) {
               confirmModal.style.display = "flex";
-
               document.getElementById("confirmDeleteBtn").onclick = function() {
                 appData.customGoals = appData.customGoals.filter(g => g.id !== goal.id);
                 saveData();
@@ -1687,7 +1707,6 @@ function updateDashboard() {
         });
       }
     }
-}
 
 panicBtn.addEventListener("click", () => modal.classList.remove("hidden"));
 cancelReset.addEventListener("click", () => modal.classList.add("hidden"));
