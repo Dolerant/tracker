@@ -1711,6 +1711,74 @@ confirmReset.addEventListener("click", () => {
 });
 modal.addEventListener("click", (e) => { if (e.target === modal) modal.classList.add("hidden"); });
 
+// === КЕРУВАННЯ МОДАЛЬНИМ ВІКНОМ КАСТОМНИХ ЦІЛЕЙ ===
+const customGoalModal = document.getElementById("customGoalModal");
+const addCustomGoalBtn = document.getElementById("addCustomGoalBtn");
+const cancelGoalBtn = document.getElementById("cancelGoalBtn");
+const saveGoalBtn = document.getElementById("saveGoalBtn");
+
+// 1. Відкрити модалку при кліку на кнопку "Додати"
+if (addCustomGoalBtn && customGoalModal) {
+  addCustomGoalBtn.addEventListener("click", () => {
+    // Очищаємо поля перед відкриттям
+    document.getElementById("goalNameInput").value = "";
+    document.getElementById("goalPriceInput").value = "";
+    document.getElementById("goalEmojiInput").value = "🎯";
+    
+    // Показуємо модалку через flex
+    customGoalModal.style.display = "flex";
+  });
+}
+
+// 2. Закрити модалку при кліку на "Скасувати"
+if (cancelGoalBtn && customGoalModal) {
+  cancelGoalBtn.addEventListener("click", () => {
+    customGoalModal.style.display = "none";
+  });
+}
+
+// 3. Збереження нової кастомної цілі
+if (saveGoalBtn && customGoalModal) {
+  saveGoalBtn.addEventListener("click", () => {
+    const name = document.getElementById("goalNameInput").value.trim();
+    const price = parseFloat(document.getElementById("goalPriceInput").value);
+    const emoji = document.getElementById("goalEmojiInput").value.trim() || "🎯";
+    const lang = appData.language || 'ua';
+
+    // Валідація: перевіряємо чи заповнені поля
+    if (!name || isNaN(price) || price <= 0) {
+      alert(i18n[lang].alertGoalFields || "Будь ласка, заповніть усі поля коректно!");
+      return;
+    }
+
+    // Створюємо об'єкт нової цілі
+    const newGoal = {
+      id: Date.now(), // унікальний ID через таймштамп
+      name: name,
+      price: price,
+      emoji: emoji
+    };
+
+    // Записуємо в масив, зберігаємо та оновлюємо інтерфейс
+    if (!appData.customGoals) appData.customGoals = [];
+    appData.customGoals.push(newGoal);
+    
+    saveData();
+    updateDashboard();
+    
+    // Закриваємо вікно
+    customGoalModal.style.display = "none";
+  });
+}
+
+// Закриття модалки при кліку на сірий фон навколо неї
+if (customGoalModal) {
+  customGoalModal.addEventListener("click", (e) => {
+    if (e.target === customGoalModal) {
+      customGoalModal.style.display = "none";
+    }
+  });
+}
 loadTheme();
 loadData();
 </script>
