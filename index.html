@@ -1642,13 +1642,16 @@ function updateDashboard() {
       goalsGrid.innerHTML = "";
       const lang = appData.language || 'ua';
       
-      // Фікс двох плюсиків: забираємо "+" з тексту кнопки
-      if (document.getElementById("textAddGoalBtn")) {
-        let btnText = "Додати ціль";
+      // Фікс двох плюсиків: повністю контролюємо вміст кнопки з коду
+      const mainGoalBtn = document.getElementById("textAddGoalBtn")?.parentElement;
+      if (mainGoalBtn) {
+        let btnText = "Додати власну ціль";
         if (i18n[lang] && i18n[lang].addGoalBtn) {
-          btnText = i18n[lang].addGoalBtn.replace("+", "").trim();
+          // Прибираємо будь-які плюси з файлу перекладів, якщо вони там є
+          btnText = i18n[lang].addGoalBtn.replace(/\+/g, "").trim();
         }
-        document.getElementById("textAddGoalBtn").textContent = btnText;
+        // Залишаємо лише один залізобетонний плюс та чистий текст
+        mainGoalBtn.innerHTML = `+ <span id="textAddGoalBtn">${btnText}</span>`;
       }
 
       // Базові курси валют відносно Чеської крони (Kč)
