@@ -1394,11 +1394,7 @@ function changeLanguage(lang) {
     document.getElementById("confirmCancelBtn").textContent = dict.cancel;
     document.getElementById("confirmDeleteBtn").textContent = dict.delete;
 
-    // Цілі
-    for (let i = 1; i <= 6; i++) {
-        document.getElementById(`gName${i}`).textContent = dict[`gName${i}`];
-        document.getElementById(`gReady${i}`).textContent = dict[`gReady${i}`];
-    }
+    updateDashboard();
 
     renderTabs();
     if (appData.userProfile) {
