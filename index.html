@@ -1458,14 +1458,13 @@ function renderTabs() {
             textSpan.textContent = habit.name;
             button.appendChild(textSpan);
 
+            // Створюємо преміальний круглий хreстик
             const deleteBtn = document.createElement("span");
-            deleteBtn.innerHTML = " &times;";
-            deleteBtn.style.marginLeft = "10px";
-            deleteBtn.style.cursor = "pointer";
-            deleteBtn.style.color = "rgba(255,255,255,0.4)";
+            deleteBtn.className = "tab-delete-btn";
+            deleteBtn.innerHTML = "&times;";
             
             deleteBtn.addEventListener("click", (e) => {
-                e.stopPropagation(); 
+                e.stopPropagation(); // Щоб клік по хрестику не перемикав таб
                 const modal = document.getElementById("customConfirmModal");
                 modal.style.display = "flex";
 
@@ -1483,6 +1482,7 @@ function renderTabs() {
             });
 
             button.appendChild(deleteBtn);
+            
             button.addEventListener("click", () => {
                 appData.currentHabitId = habit.id;
                 saveData();
