@@ -1308,6 +1308,16 @@ function loadData() {
     if (saved) {
         appData = JSON.parse(saved);
         if (!appData.language) appData.language = "ua";
+      if (!appData.customGoals) {
+      appData.customGoals = [
+        { id: 1, name: "Кіно / Попкорн", price: 250, emoji: "🍿" },
+        { id: 2, name: "Нові кросівки", price: 3000, emoji: "👟" },
+        { id: 3, name: "Вікенд за містом", price: 6000, emoji: "🌲" },
+        { id: 4, name: "Новий смартфон", price: 20000, emoji: "📱" },
+        { id: 5, name: "Курси / Навчання", price: 15000, emoji: "📚" },
+        { id: 6, name: "Поїздка на море", price: 40000, emoji: "🌊" }
+      ];
+    }
     }
     
     changeLanguage(appData.language);
